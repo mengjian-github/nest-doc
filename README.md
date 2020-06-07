@@ -4,7 +4,7 @@
 
 ## 资源
 
-[Nest.js 完全入门指南]()
+[Nest.js 完全入门指南](https://erasermeng.github.io/nest-doc/)
 
 ## 贡献
 
