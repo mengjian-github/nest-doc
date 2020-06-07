@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>异常过滤器（Exception Filter） | Nest.js完全入门指南</title>
+    <meta name="generator" content="VuePress 1.5.0">
+    <link rel="icon" href="/nest-doc/assets/img/logo.png">
+    <meta name="description" content="涵盖入门、基础、技术、源码解析、实例教程等篇章，帮助大家更好地上手Nest.js">
+    <link rel="preload" href="/nest-doc/assets/css/0.styles.58c19460.css" as="style"><link rel="preload" href="/nest-doc/assets/js/app.df150fcc.js" as="script"><link rel="preload" href="/nest-doc/assets/js/2.7019b4df.js" as="script"><link rel="preload" href="/nest-doc/assets/js/8.fe167c80.js" as="script"><link rel="prefetch" href="/nest-doc/assets/js/10.2ffe9c5f.js"><link rel="prefetch" href="/nest-doc/assets/js/11.d7f6b6a0.js"><link rel="prefetch" href="/nest-doc/assets/js/12.dea5d80f.js"><link rel="prefetch" href="/nest-doc/assets/js/13.91e13f5c.js"><link rel="prefetch" href="/nest-doc/assets/js/14.1ee95699.js"><link rel="prefetch" href="/nest-doc/assets/js/3.6fed4b78.js"><link rel="prefetch" href="/nest-doc/assets/js/4.2b7fc900.js"><link rel="prefetch" href="/nest-doc/assets/js/5.b28f6418.js"><link rel="prefetch" href="/nest-doc/assets/js/6.d2f6e020.js"><link rel="prefetch" href="/nest-doc/assets/js/7.4ba3416d.js"><link rel="prefetch" href="/nest-doc/assets/js/9.143e14c7.js">
+    <link rel="stylesheet" href="/nest-doc/assets/css/0.styles.58c19460.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div class="theme-container"><header class="navbar"><div class="sidebar-button"><svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" viewBox="0 0 448 512" class="icon"><path fill="currentColor" d="M436 124H12c-6.627 0-12-5.373-12-12V80c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12zm0 160H12c-6.627 0-12-5.373-12-12v-32c0-6.627 5.373-12 12-12h424c6.627 0 12 5.373 12 12v32c0 6.627-5.373 12-12 12z"></path></svg></div> <a href="/nest-doc/" class="home-link router-link-active"><img src="/nest-doc/assets/img/logo.png" alt="Nest.js完全入门指南" class="logo"> <span class="site-name can-hide">Nest.js完全入门指南</span></a> <div class="links"><div class="search-box"><input aria-label="Search" autocomplete="off" spellcheck="false" value=""> <!----></div> <nav class="nav-links can-hide"><div class="nav-item"><a href="/nest-doc/" class="nav-link">
+  入门
+</a></div><div class="nav-item"><a href="https://github.com/erasermeng/nest-doc" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav></div></header> <div class="sidebar-mask"></div> <aside class="sidebar"><nav class="nav-links"><div class="nav-item"><a href="/nest-doc/" class="nav-link">
+  入门
+</a></div><div class="nav-item"><a href="https://github.com/erasermeng/nest-doc" target="_blank" rel="noopener noreferrer" class="nav-link external">
+  Github
+  <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></div> <!----></nav>  <ul class="sidebar-links"><li><a href="/nest-doc/" aria-current="page" class="sidebar-link">准备工作</a></li><li><a href="/nest-doc/introduction/controller.html" class="sidebar-link">路由（Controller）</a></li><li><a href="/nest-doc/introduction/provider.html" class="sidebar-link">供应（Provider）</a></li><li><a href="/nest-doc/introduction/module.html" class="sidebar-link">模块（Module）</a></li><li><a href="/nest-doc/introduction/middleware.html" class="sidebar-link">中间件（Middleware）</a></li><li><a href="/nest-doc/introduction/exception_filter.html" aria-current="page" class="active sidebar-link">异常过滤器（Exception Filter）</a><ul class="sidebar-sub-headers"><li class="sidebar-sub-header"><a href="/nest-doc/introduction/exception_filter.html#概述" class="sidebar-link">概述</a></li><li class="sidebar-sub-header"><a href="/nest-doc/introduction/exception_filter.html#重写-json-返回" class="sidebar-link">重写 json 返回</a></li><li class="sidebar-sub-header"><a href="/nest-doc/introduction/exception_filter.html#自定义异常" class="sidebar-link">自定义异常</a></li><li class="sidebar-sub-header"><a href="/nest-doc/introduction/exception_filter.html#自定义异常过滤器" class="sidebar-link">自定义异常过滤器</a></li><li class="sidebar-sub-header"><a href="/nest-doc/introduction/exception_filter.html#基于内置异常过滤器的扩展" class="sidebar-link">基于内置异常过滤器的扩展</a></li></ul></li><li><a href="/nest-doc/introduction/pipe.html" class="sidebar-link">管道（Pipe）</a></li><li><a href="/nest-doc/introduction/guard.html" class="sidebar-link">守卫（Guard）</a></li><li><a href="/nest-doc/introduction/interceptor.html" class="sidebar-link">拦截器（Interceptor）</a></li><li><a href="/nest-doc/introduction/custom_decorator.html" class="sidebar-link">自定义装饰器（Custom Decorator）</a></li></ul> </aside> <main class="page"> <div class="theme-default-content content__default"><h1 id="异常过滤器（exception-filter）"><a href="#异常过滤器（exception-filter）" class="header-anchor">#</a> 异常过滤器（Exception Filter）</h1> <h2 id="概述"><a href="#概述" class="header-anchor">#</a> 概述</h2> <p><code>Nest</code>本身内置了异常处理层，所有未捕获的异常都会经过该层，返回一个友好的错误信息：</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;statusCode&quot;</span><span class="token operator">:</span> <span class="token number">500</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;message&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Internal server error&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>在<code>Nest</code>中内置了一个<code>HttpException</code>对象，支持抛出标准<code>HTTP</code>异常：</p> <div class="language-ts extra-class"><pre class="language-ts"><code>@<span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">HttpException</span><span class="token punctuation">(</span><span class="token string">'Forbidden'</span><span class="token punctuation">,</span> HttpStatus<span class="token punctuation">.</span><span class="token constant">FORBIDDEN</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>这时返回的默认错误信息是：</p> <div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;statusCode&quot;</span><span class="token operator">:</span> <span class="token number">403</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;message&quot;</span><span class="token operator">:</span> <span class="token string">&quot;Forbidden&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="重写-json-返回"><a href="#重写-json-返回" class="header-anchor">#</a> 重写 json 返回</h2> <p>在<code>HttpException</code>第一个参数传入一个对象，即可覆盖<code>message</code>，如：</p> <div class="language-ts extra-class"><pre class="language-ts"><code>@<span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">HttpException</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+    status<span class="token operator">:</span> HttpStatus<span class="token punctuation">.</span><span class="token constant">FORBIDDEN</span><span class="token punctuation">,</span>
+    error<span class="token operator">:</span> <span class="token string">'This is a custom message'</span><span class="token punctuation">,</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span> HttpStatus<span class="token punctuation">.</span><span class="token constant">FORBIDDEN</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-json extra-class"><pre class="language-json"><code><span class="token punctuation">{</span>
+  <span class="token property">&quot;status&quot;</span><span class="token operator">:</span> <span class="token number">403</span><span class="token punctuation">,</span>
+  <span class="token property">&quot;error&quot;</span><span class="token operator">:</span> <span class="token string">&quot;This is a custom message&quot;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="自定义异常"><a href="#自定义异常" class="header-anchor">#</a> 自定义异常</h2> <p>自定义异常可直接继承自<code>HttpException</code>类：</p> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">ForbiddenException</span> <span class="token keyword">extends</span> <span class="token class-name">HttpException</span> <span class="token punctuation">{</span>
+  <span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">(</span><span class="token string">&quot;Forbidden&quot;</span><span class="token punctuation">,</span> HttpStatus<span class="token punctuation">.</span><span class="token constant">FORBIDDEN</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><div class="language-ts extra-class"><pre class="language-ts"><code>@<span class="token function">Get</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token function">findAll</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ForbiddenException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><h2 id="自定义异常过滤器"><a href="#自定义异常过滤器" class="header-anchor">#</a> 自定义异常过滤器</h2> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token keyword">import</span> <span class="token punctuation">{</span>
+  ExceptionFilter<span class="token punctuation">,</span>
+  Catch<span class="token punctuation">,</span>
+  ArgumentsHost<span class="token punctuation">,</span>
+  HttpException<span class="token punctuation">,</span>
+<span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;@nestjs/common&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> Request<span class="token punctuation">,</span> Response <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;express&quot;</span><span class="token punctuation">;</span>
+
+@<span class="token function">Catch</span><span class="token punctuation">(</span>HttpException<span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">HttpExceptionFilter</span> <span class="token keyword">implements</span> <span class="token class-name">ExceptionFilter</span> <span class="token punctuation">{</span>
+  <span class="token keyword">catch</span><span class="token punctuation">(</span>exception<span class="token operator">:</span> HttpException<span class="token punctuation">,</span> host<span class="token operator">:</span> ArgumentsHost<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> ctx <span class="token operator">=</span> host<span class="token punctuation">.</span><span class="token function">switchToHttp</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> response <span class="token operator">=</span> ctx<span class="token punctuation">.</span>getResponse<span class="token operator">&lt;</span>Response<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> request <span class="token operator">=</span> ctx<span class="token punctuation">.</span>getRequest<span class="token operator">&lt;</span>Request<span class="token operator">&gt;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">const</span> status <span class="token operator">=</span> exception<span class="token punctuation">.</span><span class="token function">getStatus</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    response<span class="token punctuation">.</span><span class="token function">status</span><span class="token punctuation">(</span>status<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+      statusCode<span class="token operator">:</span> status<span class="token punctuation">,</span>
+      timestamp<span class="token operator">:</span> <span class="token keyword">new</span> <span class="token class-name">Date</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">toISOString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
+      path<span class="token operator">:</span> request<span class="token punctuation">.</span>url<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>异常过滤器被<code>@Catch()</code>装饰器修饰，<code>@Catch(HttpException)</code>表示这里只<code>catch HttpException</code>的异常，可以通过<code>host</code>获取当前执行上下文。</p> <h3 id="绑定特定路由"><a href="#绑定特定路由" class="header-anchor">#</a> 绑定特定路由</h3> <div class="language-ts extra-class"><pre class="language-ts"><code>@<span class="token function">Post</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+@<span class="token function">UseFilters</span><span class="token punctuation">(</span>HttpExceptionFilter<span class="token punctuation">)</span>
+<span class="token keyword">async</span> <span class="token function">create</span><span class="token punctuation">(</span><span class="token parameter">@<span class="token function">Body</span><span class="token punctuation">(</span><span class="token punctuation">)</span> createCatDto<span class="token operator">:</span> CreateCatDto</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">throw</span> <span class="token keyword">new</span> <span class="token class-name">ForbiddenException</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>可在特定 Controller 方法上使用<code>useFilters</code>。</p> <h3 id="全局绑定"><a href="#全局绑定" class="header-anchor">#</a> 全局绑定</h3> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">bootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token keyword">await</span> NestFactory<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>AppModule<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  app<span class="token punctuation">.</span><span class="token function">useGlobalFilters</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">HttpExceptionFilter</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token keyword">await</span> app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">bootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div><h3 id="module-绑定"><a href="#module-绑定" class="header-anchor">#</a> module 绑定</h3> <p>全局绑定无法用到依赖注入的能力，有必要时我们可以绑定到全局的<code>module</code>上：</p> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> Module <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;@nestjs/common&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> <span class="token constant">APP_FILTER</span> <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;@nestjs/core&quot;</span><span class="token punctuation">;</span>
+
+@<span class="token function">Module</span><span class="token punctuation">(</span><span class="token punctuation">{</span>
+  providers<span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      provide<span class="token operator">:</span> <span class="token constant">APP_FILTER</span><span class="token punctuation">,</span>
+      useClass<span class="token operator">:</span> HttpExceptionFilter<span class="token punctuation">,</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+<span class="token punctuation">}</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AppModule</span> <span class="token punctuation">{</span><span class="token punctuation">}</span>
+</code></pre></div><h2 id="基于内置异常过滤器的扩展"><a href="#基于内置异常过滤器的扩展" class="header-anchor">#</a> 基于内置异常过滤器的扩展</h2> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token keyword">import</span> <span class="token punctuation">{</span> Catch<span class="token punctuation">,</span> ArgumentsHost <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;@nestjs/common&quot;</span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token punctuation">{</span> BaseExceptionFilter <span class="token punctuation">}</span> <span class="token keyword">from</span> <span class="token string">&quot;@nestjs/core&quot;</span><span class="token punctuation">;</span>
+
+@<span class="token function">Catch</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">export</span> <span class="token keyword">class</span> <span class="token class-name">AllExceptionsFilter</span> <span class="token keyword">extends</span> <span class="token class-name">BaseExceptionFilter</span> <span class="token punctuation">{</span>
+  <span class="token keyword">catch</span><span class="token punctuation">(</span>exception<span class="token operator">:</span> <span class="token builtin">unknown</span><span class="token punctuation">,</span> host<span class="token operator">:</span> ArgumentsHost<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">super</span><span class="token punctuation">.</span><span class="token keyword">catch</span><span class="token punctuation">(</span>exception<span class="token punctuation">,</span> host<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre></div><p>如果只想在内置过滤器基础上扩展，只需要继承自<code>BaseExceptionFilter</code>即可。</p> <p>注意这种方式实例化时需要传入<code>httpAdapter</code>参数，如：</p> <div class="language-ts extra-class"><pre class="language-ts"><code><span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">bootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword">const</span> app <span class="token operator">=</span> <span class="token keyword">await</span> NestFactory<span class="token punctuation">.</span><span class="token function">create</span><span class="token punctuation">(</span>AppModule<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">const</span> <span class="token punctuation">{</span> httpAdapter <span class="token punctuation">}</span> <span class="token operator">=</span> app<span class="token punctuation">.</span><span class="token keyword">get</span><span class="token punctuation">(</span>HttpAdapterHost<span class="token punctuation">)</span><span class="token punctuation">;</span>
+  app<span class="token punctuation">.</span><span class="token function">useGlobalFilters</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">AllExceptionsFilter</span><span class="token punctuation">(</span>httpAdapter<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+  <span class="token keyword">await</span> app<span class="token punctuation">.</span><span class="token function">listen</span><span class="token punctuation">(</span><span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token function">bootstrap</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre></div></div> <footer class="page-edit"><!----> <!----></footer> <div class="page-nav"><p class="inner"><span class="prev">
+      ←
+      <a href="/nest-doc/introduction/middleware.html" class="prev">
+        中间件（Middleware）
+      </a></span> <span class="next"><a href="/nest-doc/introduction/pipe.html">
+        管道（Pipe）
+      </a>
+      →
+    </span></p></div> </main></div><div class="global-ui"></div></div>
+    <script src="/nest-doc/assets/js/app.df150fcc.js" defer></script><script src="/nest-doc/assets/js/2.7019b4df.js" defer></script><script src="/nest-doc/assets/js/8.fe167c80.js" defer></script>
+  </body>
+</html>
